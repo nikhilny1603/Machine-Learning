@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Book Recommender System</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <style>
+        .navbar {
+            background-color: #004085; 
+            border: none;
+        }
+        .navbar a {
+            color: white !important; 
+            font-size: 16px;
+            font-weight: bold;
+        }
+        .navbar a:hover {
+            color: #ffc107 !important; 
+        }
+
+        body {
+            background-color: #121212; 
+            color: white; 
+        }
+
+        .card {
+            background-color: #1e1e1e; 
+            border: 1px solid #444; 
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+            transition: transform 0.2s ease-in-out; 
+        }
+        .card:hover {
+            transform: scale(1.05); 
+        }
+        .card-body img {
+            border-radius: 10px; 
+            max-height: 200px; 
+            object-fit: cover; 
+        }
+        .card-body p, .card-body h4 {
+            margin: 10px 0; 
+        }
+
+            .card-body p a {
+                font-size: 18px;
+                font-weight: bold; 
+            }
+        
+            .card-body h4:last-child {
+                font-size: 14px; 
+                color: #ccc; 
+            }
+        
+        h1 {
+            font-size: 50px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 30px;
+            color: #ffc107; 
+        }
+
+        .form-inline {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .form-inline .form-control {
+            width: 100%; 
+            border-radius: 20px;
+        }
+        .form-inline .btn {
+            border-radius: 20px;
+            background-color:rgb(38, 154, 3);
+        }
+        .form-inline .btn:hover {
+            background-color: rgb(62, 155, 38);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+<nav class="navbar">
+    <div class="container">
+        <a class="navbar-brand" href="/">My Book Recommender</a>
+        <ul class="nav navbar-nav">
+            <li><a href="/">Home</a></li>
+            <li><a href="/recommend">Recommend</a></li>
+            <li><a href="/about">About</a></li>
+        </ul>
+    </div>
+</nav>
+
+    <!-- Search Bar -->
+    <div class="container">
+        <form action="/search" method="POST" class="form-inline">
+            <div class="form-group">
+                <input type="text" name="query" class="form-control" placeholder="Search for books..." value="{{ search_query }}">
+            </div>
+            <button type="submit" class="btn btn-success">Search</button>
+        </form>
+    </div>
+
+    <!-- Book List -->
+    <div class="container">
+        <h1>Top 50 Books</h1>
+        <div class="row">
+            {% for i in range(book_name|length) %}
+                <div class="col-md-3" style="margin-bottom: 30px;">
+                    <div class="card">
+                        <div class="card-body">
+                            <img class="card-img-top" src="{{ image[i] }}" alt="Book Image">
+                            <p class="text-white">
+                                <a href="/book/{{ book_name[i] }}" style="color: #ffc107; text-decoration: none;">{{ book_name[i] }}</a>
+                            </p>
+                            <h4 class="text-white">Author: {{ author[i] }}</h4>
+                            <h4 class="text-white">Votes: {{ votes[i] }}</h4>
+                            <h4 class="text-white">Rating: {{ rating[i] }}</h4>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+</body>
+</html>
